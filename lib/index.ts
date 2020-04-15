@@ -167,14 +167,14 @@ export declare interface VLC {
   on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
-const s2nano = 1e9;
-const ms2nano = 1e6;
+// const s2nano = 1e9;
+// const ms2nano = 1e6;
 // const nano2s = 1 / s2nano;
 
-function getNano(): number {
-  const hrtime = process.hrtime();
-  return +hrtime[0] * s2nano + +hrtime[1];
-}
+// function getNano(): number {
+//   const hrtime = process.hrtime();
+//   return +hrtime[0] * s2nano + +hrtime[1];
+// }
 
 function get<T = any>(options: http.RequestOptions): Promise<T> {
   return new Promise((resolve, reject) => {
