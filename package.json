@@ -17,7 +17,9 @@
   "repository": "https://github.com/ldubos/node-vlc-http.git",
   "author": "ldubos <ludwig.dubos@gmail.com>",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "tsc -p ./tsconfig.json"
+  },
   "devDependencies": {
     "@types/deep-equal": "^1.0.1",
     "@types/node": "^12.7.4",
