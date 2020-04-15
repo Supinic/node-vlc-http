@@ -169,7 +169,7 @@ export declare interface VLC {
 
 const s2nano = 1e9;
 const ms2nano = 1e6;
-const nano2s = 1 / s2nano;
+// const nano2s = 1 / s2nano;
 
 function getNano(): number {
   const hrtime = process.hrtime();
@@ -201,11 +201,11 @@ export class VLC extends EventEmitter {
   private _changeEvents = true;
   private _authorization: string;
   private _tickLengthMs: number;
-  private _tickLengthNano: number;
+  // private _tickLengthNano: number;
   private _longWaitMs: number;
-  private _longWaitNano: number;
-  private _prev: number;
-  private _target: number;
+  // private _longWaitNano: number;
+  // private _prev: number;
+  // private _target: number;
   private _status: Status = null as any;
   private _playlist: Playlist = null as any;
 
@@ -230,11 +230,11 @@ export class VLC extends EventEmitter {
       this._tickLengthMs = 16;
     }
 
-    this._tickLengthNano = this._tickLengthMs * ms2nano;
+    // this._tickLengthNano = this._tickLengthMs * ms2nano;
     this._longWaitMs = Math.floor(this._tickLengthMs - 1);
-    this._longWaitNano = this._longWaitMs * ms2nano;
-    this._prev = getNano();
-    this._target = this._prev;
+    // this._longWaitNano = this._longWaitMs * ms2nano;
+    // this._prev = getNano();
+    // this._target = this._prev;
 
     // generate authorization string
     this._authorization = `Basic ${Buffer.from(
