@@ -1,4 +1,5 @@
-import equal from 'deep-equal';
+// import equal from 'deep-equal';
+import equal from 'simple-deep-equal';
 import { EventEmitter } from 'events';
 import http from 'http';
 import querystring from 'querystring';

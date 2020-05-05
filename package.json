@@ -40,6 +40,6 @@
     "typescript": "^3.6.2"
   },
   "dependencies": {
-    "deep-equal": "^1.1.0"
+    "simple-deep-equal": "github:Supinic/simple-deep-equal"
   }
 }
