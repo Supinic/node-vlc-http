@@ -18,7 +18,7 @@
   "author": "ldubos <ludwig.dubos@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "prepare": "tsc -p ./tsconfig.json"
+    "preinstall": "tsc -p ./tsconfig.json"
   },
   "devDependencies": {
     "@types/deep-equal": "^1.0.1",
