@@ -154,6 +154,7 @@ export type VLCOptions = {
    * if it the case fire browsechange, statuschange or playlistchange event. default true.
    */
   changeEvents?: boolean;
+  running?: boolean;
 };
 
 export declare interface VLC {
@@ -209,6 +210,7 @@ export class VLC extends EventEmitter {
   // private _target: number;
   private _status: Status = null as any;
   private _playlist: Playlist = null as any;
+  private _running: boolean = true;
 
   constructor(options: VLCOptions) {
     super();
@@ -242,6 +244,10 @@ export class VLC extends EventEmitter {
       `${options.username}:${options.password}`
     ).toString('base64')}`;
 
+    if (typeof options.running === "boolean") {
+      this._running = options.running;
+    }
+
     if (this._autoUpdate) {
       // start loop
       this._doTick();
@@ -249,8 +255,11 @@ export class VLC extends EventEmitter {
   }
 
   private _doTick(): void {
-    this.emit('tick');
-    this.updateAll().catch(err => this.emit('error', err));
+    this.emit('tick', this._running);
+
+    if (this._running) {
+      this.updateAll().catch(err => this.emit('error', err));
+    }
 
     setTimeout(
       () => this._doTick(),
@@ -281,12 +290,18 @@ export class VLC extends EventEmitter {
     });
   }
 
+  public startRunning (): void {
+    this._running = true;
+  }
+
+  public stopRunning (): void {
+    this._running = false;
+  }
+
   public async browse(path: string): Promise<Browse> {
-    const browse = this._sendCommand(CommandScope.BROWSE, null, {
+    return this._sendCommand(CommandScope.BROWSE, null, {
       dir: path
     });
-
-    return browse;
   }
 
   public async updateStatus(): Promise<Status> {
