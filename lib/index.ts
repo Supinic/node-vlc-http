@@ -399,7 +399,7 @@ export class VLC extends EventEmitter {
    * Stop playback.
    */
   public stop(): Promise<Status> {
-    return this._sendCommand(CommandScope.STATUS, 'pl_forcepause');
+    return this._sendCommand(CommandScope.STATUS, 'pl_stop');
   }
 
   /**
