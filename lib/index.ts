@@ -254,11 +254,22 @@ export class VLC extends EventEmitter {
     }
   }
 
-  private _doTick(): void {
+  private async _doTick(): Promise<void> {
     this.emit('tick', this._running);
 
     if (this._running) {
-      this.updateAll().catch(err => this.emit('error', err));
+      try {
+        await this.updateAll();
+        if (!this._running) {
+          this.startRunning();
+        }
+      }
+      catch (e) {
+        console.error(e);
+        if (this._running) {
+          this.stopRunning();
+        }
+      }
     }
 
     setTimeout(
