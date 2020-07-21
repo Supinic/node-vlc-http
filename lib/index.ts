@@ -181,14 +181,22 @@ export declare interface VLC {
 function get<T = any>(options: http.RequestOptions): Promise<T> {
   return new Promise((resolve, reject) => {
     http.get(options, response => {
-      let data = '';
+      const contentType = response.headers["content-type"] || "text/plain";
+      if (response.statusCode !== 200) {
+        reject(new Error("Request failed. Status code " + response.statusCode));
+      }
+      else if (!/^application\/json/.test(contentType)) {
+        reject(new Error("Invalid content type. Expected application/json, received " + contentType));
+      }
 
+      let data = '';
       response.on('error', reject);
       response.on('data', chunk => (data += chunk));
       response.on('end', () => {
         try {
           resolve(JSON.parse(data));
-        } catch (err) {
+        }
+        catch (err) {
           reject(err);
         }
       });
