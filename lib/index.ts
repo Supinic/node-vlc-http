@@ -200,7 +200,7 @@ function get<T = any>(options: http.RequestOptions): Promise<T> {
           reject(err);
         }
       });
-    });
+    }).on("error", (e) => reject(e));
   });
 }
 
