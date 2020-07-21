@@ -185,8 +185,8 @@ function get<T = any>(options: http.RequestOptions): Promise<T> {
       if (response.statusCode !== 200) {
         reject(new Error("Request failed. Status code " + response.statusCode));
       }
-      else if (!/^application\/json/.test(contentType)) {
-        reject(new Error("Invalid content type. Expected application/json, received " + contentType));
+      else if (!/^application\/json/.test(contentType) && !/^text\/plain/.test(contentType)) {
+        reject(new Error("Invalid content type. Expected application/json or text/plain, received " + contentType));
       }
 
       let data = '';
